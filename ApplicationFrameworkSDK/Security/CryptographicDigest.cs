@@ -30,10 +30,9 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-using System.IO;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Linq;
+using ApplicationFrameworkSDK.Common;
 
 namespace ApplicationFrameworkSDK.Security
 {
@@ -55,7 +54,7 @@ namespace ApplicationFrameworkSDK.Security
         /// <returns>Cryptographic digest value</returns>
         public byte[] GetDigest(string resourcePath, int digestLength)
         {
-            return GetDigest(GetEmbeddedResource(resourcePath), digestLength);
+            return GetDigest(Functions.GetEmbeddedResource(resourcePath), digestLength);
         }
 
         /// <summary>
@@ -91,24 +90,6 @@ namespace ApplicationFrameworkSDK.Security
         public static CryptographicDigest Create()
         {
             return new CryptographicDigest();
-        }
-
-        private byte[] GetEmbeddedResource(string path)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var resource = assembly.GetManifestResourceStream(path);
-            var buffer = new byte[0x10000];
-            var eos = false;
-            using (var ms = new MemoryStream())
-            {
-                while(!eos)
-                {
-                    int bytesRead = resource.Read(buffer, 0, buffer.Length);
-                    if (bytesRead > 0) { ms.Write(buffer, 0, bytesRead); } else { eos = true; }
-                }
-
-                return ms.ToArray();
-            }
         }
     }
 }
