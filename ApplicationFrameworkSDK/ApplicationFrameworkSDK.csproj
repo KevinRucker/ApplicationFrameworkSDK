@@ -49,7 +49,6 @@
     <Compile Include="Interfaces\IDBConnectionStringProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AFSDKProtectedConfigurationSectionProvider.cs" />
-    <Compile Include="Security\ClassExtensions.cs" />
     <Compile Include="Security\CryptographicDigest.cs" />
     <Compile Include="Security\CryptographicValue.cs" />
     <Compile Include="Security\SymmetricCryptographyProvider.cs" />

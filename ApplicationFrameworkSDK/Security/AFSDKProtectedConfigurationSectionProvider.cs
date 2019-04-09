@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using ApplicationFrameworkSDK.Common;
 
 namespace ApplicationFrameworkSDK.Security
 {

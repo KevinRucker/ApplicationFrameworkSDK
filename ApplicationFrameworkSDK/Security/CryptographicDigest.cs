@@ -47,14 +47,36 @@ namespace ApplicationFrameworkSDK.Security
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="digestLength"></param>
+        /// <returns></returns>
+        public byte[] GetDigestFromEmbedded(int digestLength)
+        {
+            return GetDigestFromEmbedded("default path", digestLength);
+        }
+
+        /// <summary>
         /// Get cryptographic digest of specific length derived from embedded resource
         /// </summary>
         /// <param name="resourcePath">Path of embedded resource</param>
         /// <param name="digestLength">Desired length of returned encryption digest</param>
         /// <returns>Cryptographic digest value</returns>
-        public byte[] GetDigest(string resourcePath, int digestLength)
+        public byte[] GetDigestFromEmbedded(string resourcePath, int digestLength)
         {
             return GetDigest(Functions.GetEmbeddedResource(resourcePath), digestLength);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="passphrase"></param>
+        /// <param name="digestLength"></param>
+        /// <returns></returns>
+        public byte[] GetDigest(string passphrase, int digestLength)
+        {
+            var bytes = new System.Text.UTF8Encoding().GetBytes(passphrase);
+            return GetDigest(bytes, digestLength);
         }
 
         /// <summary>
