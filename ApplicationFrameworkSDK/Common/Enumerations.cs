@@ -30,7 +30,10 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+using System;
 using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
 
 namespace ApplicationFrameworkSDK.Common
 {
@@ -54,5 +57,44 @@ namespace ApplicationFrameworkSDK.Common
         MySQL,
         [Description("System.Data.SqlClient")]
         SqlServer
+    }
+
+    public static class Extensions
+    {
+        #region Enumeration Extensions
+
+        /// <summary>
+        /// Get enumeration description attribute value
+        /// </summary>
+        /// <typeparam name="T"><see cref="enum"/> type</typeparam>
+        /// <param name="e">Selected parameter</param>
+        /// <returns><see cref="string"/> containing description text</returns>
+        public static string GetDescription<T>(this T e) where T : IConvertible
+        {
+            if (e is Enum)
+            {
+                var type = e.GetType();
+                var values = Enum.GetValues(type);
+                foreach (int val in values)
+                {
+                    if (val == e.ToInt32(CultureInfo.InvariantCulture))
+                    {
+                        var memInfo = type.GetMember(type.GetEnumName(val));
+                        var descriptionAttribute = memInfo[0]
+                            .GetCustomAttributes(typeof(DescriptionAttribute), false)
+                            .FirstOrDefault() as DescriptionAttribute;
+
+                        if (descriptionAttribute != null)
+                        {
+                            return descriptionAttribute.Description;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        #endregion Enumeration Extensions
     }
 }

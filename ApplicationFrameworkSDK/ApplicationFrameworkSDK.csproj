@@ -53,6 +53,8 @@
     <Compile Include="Security\CryptographicValue.cs" />
     <Compile Include="Security\SymmetricCryptographyProvider.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Security\crypto.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

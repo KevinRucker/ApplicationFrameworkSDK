@@ -32,6 +32,7 @@
 
 using System.Security.Cryptography;
 using System.Linq;
+using System.Reflection;
 using ApplicationFrameworkSDK.Common;
 
 namespace ApplicationFrameworkSDK.Security
@@ -47,24 +48,28 @@ namespace ApplicationFrameworkSDK.Security
         }
 
         /// <summary>
-        /// 
+        /// Get digest from locally embedded resource
         /// </summary>
-        /// <param name="digestLength"></param>
-        /// <returns></returns>
+        /// <param name="digestLength">Desired length of returned encryption digest</param>
+        /// <returns>Cryptographic digest value</returns>
         public byte[] GetDigestFromEmbedded(int digestLength)
         {
-            return GetDigestFromEmbedded("default path", digestLength);
+            return GetDigestFromEmbedded(
+                Assembly.GetExecutingAssembly().Location, 
+                "ApplicationFrameworkSDK.Security.crypto.jpg", 
+                digestLength);
         }
 
         /// <summary>
         /// Get cryptographic digest of specific length derived from embedded resource
         /// </summary>
+        /// <param name="assemblyPath">Path of specified assembly</param>
         /// <param name="resourcePath">Path of embedded resource</param>
         /// <param name="digestLength">Desired length of returned encryption digest</param>
         /// <returns>Cryptographic digest value</returns>
-        public byte[] GetDigestFromEmbedded(string resourcePath, int digestLength)
+        public byte[] GetDigestFromEmbedded(string assemblyPath, string resourcePath, int digestLength)
         {
-            return GetDigest(Functions.GetEmbeddedResource(resourcePath), digestLength);
+            return GetDigest(Functions.GetEmbeddedResource(assemblyPath, resourcePath), digestLength);
         }
 
         /// <summary>
@@ -87,6 +92,8 @@ namespace ApplicationFrameworkSDK.Security
         /// <returns>Cryptographic digest value</returns>
         public byte[] GetDigest(byte[] value, int digestLength)
         {
+            if(value == null) { return null; }
+
             var iterations = 0;
             if (value.Length == 0)
             {

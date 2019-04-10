@@ -31,11 +31,9 @@
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
-using System.ComponentModel;
 using System.Data.SqlTypes;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
@@ -286,6 +284,8 @@ namespace ApplicationFrameworkSDK.Common
         /// <returns><code>byte[]</code> containing contentof stream</returns>
         public static byte[] BinaryReadToEnd(this Stream origin)
         {
+            if (origin == null || origin.Length == 0) { return null; }
+
             var buffer = Functions.CreateBuffer(0x10000);
             var EOS = false;
             var bytesRead = 0;
@@ -314,41 +314,5 @@ namespace ApplicationFrameworkSDK.Common
         }
 
         #endregion Stream Extensions
-
-        #region Enumeration Extensions
-
-        /// <summary>
-        /// Get enumeration description attribute value
-        /// </summary>
-        /// <typeparam name="T"><see cref="enum"/> type</typeparam>
-        /// <param name="e">Selected parameter</param>
-        /// <returns><see cref="string"/> containing description text</returns>
-        public static string GetDescription<T>(this T e) where T : IConvertible
-        {
-            if (e is Enum)
-            {
-                var type = e.GetType();
-                var values = Enum.GetValues(type);
-                foreach (int val in values)
-                {
-                    if (val == e.ToInt32(CultureInfo.InvariantCulture))
-                    {
-                        var memInfo = type.GetMember(type.GetEnumName(val));
-                        var descriptionAttribute = memInfo[0]
-                            .GetCustomAttributes(typeof(DescriptionAttribute), false)
-                            .FirstOrDefault() as DescriptionAttribute;
-
-                        if (descriptionAttribute != null)
-                        {
-                            return descriptionAttribute.Description;
-                        }
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        #endregion Enumeration Extensions
     }
 }

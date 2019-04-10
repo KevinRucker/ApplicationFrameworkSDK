@@ -49,13 +49,28 @@ namespace ApplicationFrameworkSDK.Common
         /// <summary>
         /// Get embedded resource
         /// </summary>
-        /// <param name="path">Path to resource</param>
+        /// <param name="resourcePath">Resource path</param>
         /// <returns><see cref="byte[]"/> containing resource</returns>
-        public static byte[] GetEmbeddedResource(string path)
+        public static byte[] GetEmbeddedResource(string resourcePath)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            var resource = assembly.GetManifestResourceStream(path);
-            return resource.BinaryReadToEnd();
+            return Assembly
+                .GetExecutingAssembly()
+                .GetManifestResourceStream(resourcePath)
+                .BinaryReadToEnd();
+        }
+
+        /// <summary>
+        /// Get embedded resource from specified assembly
+        /// </summary>
+        /// <param name="assemblyPath">Path of assembly containing embedded resource</param>
+        /// <param name="resourcePath">Resource path</param>
+        /// <returns><see cref="byte[]"/> containing resource</returns>
+        public static byte[] GetEmbeddedResource(string assemblyPath, string resourcePath)
+        {
+            return Assembly
+                .LoadFrom(assemblyPath)
+                .GetManifestResourceStream(resourcePath)
+                .BinaryReadToEnd();
         }
     }
 }
