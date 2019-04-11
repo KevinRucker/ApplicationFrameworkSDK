@@ -12,15 +12,16 @@ namespace ApplicationFrameworkSDKTest
         [TestMethod]
         public void TestMethod1()
         {
+            var crypto = SymmetricEncryptionProvider<Aes>.Create();
             var enumTestValue = DataProviders.SqlServer;
             var enumTestDesc = enumTestValue.GetDescription();
-            var test = SymmetricEncryptionProvider<Aes>.Create().ExpectedKeySize;
-            var test2 = CryptographicDigest.Create().GetDigestFromEmbedded(test);
+            var test = crypto.ExpectedKeySize;
+            var test2 = CryptographicDigest.Create().GetDigestFromEmbedded(crypto.ExpectedKeySize);
 
             var test3 = CryptographicDigest.Create().GetDigestFromEmbedded(
                 Assembly.GetExecutingAssembly().Location, 
                 "ApplicationFrameworkSDKTest.crypto2.jpg",
-                SymmetricEncryptionProvider<Aes>.Create().ExpectedKeySize);
+                crypto.ExpectedKeySize);
         }
     }
 }
