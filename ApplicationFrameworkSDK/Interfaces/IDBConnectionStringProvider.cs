@@ -8,8 +8,7 @@
         /// <summary>
         /// Retrieve the connection string
         /// </summary>
-        /// <param name="connectionName">Named connection to get connection string for</param>
         /// <returns>The connection string</returns>
-        string GetConnectionString(string connectionName);
+        string GetConnectionString();
     }
 }

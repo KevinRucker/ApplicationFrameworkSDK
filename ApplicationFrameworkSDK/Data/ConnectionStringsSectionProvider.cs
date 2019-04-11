@@ -8,14 +8,30 @@ namespace ApplicationFrameworkSDK.Data
     /// </summary>
     public class ConnectionStringsSectionProvider : IDBConnectionStringProvider
     {
+        private string _connectionName = string.Empty;
+
+        private ConnectionStringsSectionProvider(string connectionName)
+        {
+            _connectionName = connectionName;
+        }
+
+        /// <summary>
+        /// FActory method to create instance of ConnectionStringsSectionProvider
+        /// </summary>
+        /// <param name="connectionName"></param>
+        /// <returns><see cref="ConnectionStringsSectionProvider"/></returns>
+        public static IDBConnectionStringProvider Create(string connectionName)
+        {
+            return new ConnectionStringsSectionProvider(connectionName);
+        }
+
         /// <summary>
         /// Get connection string
         /// </summary>
-        /// <param name="connectionName">Connection Name</param>
         /// <returns><see cref="string"/> containing the connection string</returns>
-        public string GetConnectionString(string connectionName)
+        public string GetConnectionString()
         {
-            return ConfigurationManager.ConnectionStrings[connectionName].ConnectionString;
+            return ConfigurationManager.ConnectionStrings[_connectionName].ConnectionString;
         }
     }
 }

@@ -58,13 +58,13 @@ namespace ApplicationFrameworkSDK.Data
             }
         }
 
-        public IDbConnection CreateConnection(string connectionName)
+        public IDbConnection CreateConnection()
         {
             try
             {
                 var factory = DbProviderFactories.GetFactory(_provider.GetDescription());
                 var connection = factory.CreateConnection();
-                connection.ConnectionString = _CSProvider.GetConnectionString(connectionName);
+                connection.ConnectionString = _CSProvider.GetConnectionString();
                 connection.Open();
                 return connection;
             }
