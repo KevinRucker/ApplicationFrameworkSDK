@@ -19,11 +19,22 @@ namespace ApplicationFrameworkSDK.Data
             _CSProvider = CSProvider;
         }
 
+        /// <summary>
+        /// Factory method to create <see cref="DBContext"/> instance
+        /// </summary>
+        /// <param name="provider">DB Provider to use</param>
+        /// <param name="CSProvider">Connection String provider to use</param>
+        /// <returns><see cref="DBContext"/> instance</returns>
         public static IDBContext Create(DataProviders provider, IDBConnectionStringProvider CSProvider)
         {
             return new DBContext(provider, CSProvider);
         }
 
+        /// <summary>
+        /// Create <see cref="DbDataAdapter"/> instance
+        /// </summary>
+        /// <param name="command"><see cref="DbCommand"/> instance</param>
+        /// <returns><see cref="DbDataAdapter"/> instance</returns>
         public IDbDataAdapter CreateAdapter(IDbCommand command)
         {
             try
@@ -39,6 +50,14 @@ namespace ApplicationFrameworkSDK.Data
             }
         }
 
+        /// <summary>
+        /// Create <see cref="DbCommand"/> instance
+        /// </summary>
+        /// <param name="commandText">Command Text</param>
+        /// <param name="commandType">Command Type</param>
+        /// <param name="parameters">Parameter List</param>
+        /// <param name="connection"><see cref="DbConnection"/></param>
+        /// <returns><see cref="DbCommand"/> instance</returns>
         public IDbCommand CreateCommand(string commandText, CommandType commandType, List<IDbDataParameter> parameters, IDbConnection connection)
         {
             try
@@ -58,6 +77,10 @@ namespace ApplicationFrameworkSDK.Data
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IDbConnection CreateConnection()
         {
             try
@@ -74,6 +97,11 @@ namespace ApplicationFrameworkSDK.Data
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         public IDataReader CreateDataReader(IDbCommand command)
         {
             try
@@ -86,11 +114,32 @@ namespace ApplicationFrameworkSDK.Data
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="direction"></param>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public IDbDataParameter CreateParameter(DbType type, ParameterDirection direction, string name, object value)
         {
             return CreateParameter(type, direction, name, null, null, null, null, DataRowVersion.Proposed, value);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="direction"></param>
+        /// <param name="name"></param>
+        /// <param name="precision"></param>
+        /// <param name="scale"></param>
+        /// <param name="size"></param>
+        /// <param name="sourceColumn"></param>
+        /// <param name="version"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public IDbDataParameter CreateParameter(DbType type, ParameterDirection direction, string name, byte? precision, byte? scale, int? size, string sourceColumn, DataRowVersion version, object value)
         {
             try
