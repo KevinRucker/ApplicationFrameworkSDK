@@ -78,9 +78,9 @@ namespace ApplicationFrameworkSDK.Data
         }
 
         /// <summary>
-        /// 
+        /// Create <see cref="DbConnection"/> instance
         /// </summary>
-        /// <returns></returns>
+        /// <returns><see cref="DbConnection"/> instance</returns>
         public IDbConnection CreateConnection()
         {
             try
@@ -98,10 +98,10 @@ namespace ApplicationFrameworkSDK.Data
         }
 
         /// <summary>
-        /// 
+        /// Create <see cref="DbDataReader"/> instance
         /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
+        /// <param name="command"><see cref="DbCommand"/></param>
+        /// <returns><see cref="DbDataReader"/> instance</returns>
         public IDataReader CreateDataReader(IDbCommand command)
         {
             try
@@ -115,31 +115,31 @@ namespace ApplicationFrameworkSDK.Data
         }
 
         /// <summary>
-        /// 
+        /// Create <see cref="IDbDataParameter"/>
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="direction"></param>
-        /// <param name="name"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="type">Parameter type</param>
+        /// <param name="direction">Direction</param>
+        /// <param name="name">Parameter Name</param>
+        /// <param name="value">Parameter value</param>
+        /// <returns><see cref="IDbDataParameter"/></returns>
         public IDbDataParameter CreateParameter(DbType type, ParameterDirection direction, string name, object value)
         {
             return CreateParameter(type, direction, name, null, null, null, null, DataRowVersion.Proposed, value);
         }
 
         /// <summary>
-        /// 
+        /// Create <see cref="IDbDataParameter"/>
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="direction"></param>
-        /// <param name="name"></param>
-        /// <param name="precision"></param>
-        /// <param name="scale"></param>
-        /// <param name="size"></param>
-        /// <param name="sourceColumn"></param>
-        /// <param name="version"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="type">Parameter type</param>
+        /// <param name="direction">Direction</param>
+        /// <param name="name">Parameter Name</param>
+        /// <param name="precision">Value precision</param>
+        /// <param name="scale">Value scale</param>
+        /// <param name="size">Value size</param>
+        /// <param name="sourceColumn">Source column</param>
+        /// <param name="version">Row version</param>
+        /// <param name="value">Value</param>
+        /// <returns><see cref="IDbDataParameter"/></returns>
         public IDbDataParameter CreateParameter(DbType type, ParameterDirection direction, string name, byte? precision, byte? scale, int? size, string sourceColumn, DataRowVersion version, object value)
         {
             try
