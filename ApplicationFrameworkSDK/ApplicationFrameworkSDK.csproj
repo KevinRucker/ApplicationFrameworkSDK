@@ -48,6 +48,7 @@
     <Compile Include="CustomExceptions\DBException.cs" />
     <Compile Include="Data\ConnectionStringsSectionProvider.cs" />
     <Compile Include="Data\DBContext.cs" />
+    <Compile Include="Data\SqlDirect.cs" />
     <Compile Include="Interfaces\IDBConnectionStringProvider.cs" />
     <Compile Include="Interfaces\IDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
